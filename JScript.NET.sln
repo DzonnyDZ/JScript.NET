@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.Tasks", "JScript.NET.Tasks\JScript.NET.Tasks.csproj", "{EFD3C54D-6ED1-425D-867A-66E30ABC2BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectTemplate", "JScript.NET.ProjectTemplate\JScript.NET.ProjectTemplate.csproj", "{8D07BBDE-DF34-4EBB-ABC9-44769B292522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectType", "JScript.NET.ProjectType\JScript.NET.ProjectType.csproj", "{FF0D1C53-9A42-4030-B3A4-266B17921492}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EFD3C54D-6ED1-425D-867A-66E30ABC2BDD} = {EFD3C54D-6ED1-425D-867A-66E30ABC2BDD}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFD3C54D-6ED1-425D-867A-66E30ABC2BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD3C54D-6ED1-425D-867A-66E30ABC2BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD3C54D-6ED1-425D-867A-66E30ABC2BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD3C54D-6ED1-425D-867A-66E30ABC2BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
