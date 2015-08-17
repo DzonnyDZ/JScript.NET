@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildThisFileDirectory)\JScriptNetProject.targets" />
-    <UsingTask TaskName="Dzonny.JScriptNet.Jsc" AssemblyName="Dzonny.JScriptNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9be6e469bc4921f1"/>
+    <UsingTask TaskName="Dzonny.JScriptNet.Jsc" AssemblyFile="$(MSBuildThisFileDirectory)Dzonny.JScriptNet.dll"/>
 
     <ItemGroup>
         <ProjectCapability Include="ReferencesFolder"/>
