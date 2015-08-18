@@ -17,6 +17,7 @@
         <ProjectCapability Include="AssemblyReferences;COMReferences;ProjectReferences;WinRTReferences;SDKReferences" />
         <ProjectCapability Include="AllTargetOutputGroups;VisualStudioWellKnownOutputGroups" />
         <ProjectCapability Include="ProjectConfigurationsDeclaredAsItems" />
+        <ProjectCapability Include="RunningInVisualStudio;Managed;BuildWindowsDesktopTarget"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -24,7 +25,7 @@
             <Context>Project</Context>
         </PropertyPageSchema>
         <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\ProjectItemsSchema.xaml;"/>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\debugger_general.xaml;">
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\debugger_general.xaml;$(MSBuildThisFileDirectory)Rules\JSNetDebugger.xaml">
             <Context>Project</Context>
         </PropertyPageSchema>
         <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\general_file.xaml">
@@ -47,7 +48,7 @@
 			$(MSBuildThisFileDirectory)Rules\projectreference.xaml;
 			$(MSBuildThisFileDirectory)Rules\sdkreference.xaml;
         ">
-            <Context>;BrowseObject</Context>
+            <Context>BrowseObject</Context>
         </PropertyPageSchema>
 
         <PropertyPageSchema Include="
@@ -59,8 +60,12 @@
             <Context>ProjectSubscriptionService;BrowseObject</Context>
         </PropertyPageSchema>
 
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\general.browseobject.xaml">
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\general.browseobject.xaml;$(MSBuildThisFileDirectory)Rules\JSNet.browseobject.xaml">
             <Context>BrowseObject</Context>
+        </PropertyPageSchema>
+
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\js.xaml">
+            <Context>File;BrowseObject</Context>
         </PropertyPageSchema>
     </ItemGroup>
 </Project>

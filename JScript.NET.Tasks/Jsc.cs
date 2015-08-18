@@ -1,12 +1,16 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using IO = System.IO;
 
 namespace Dzonny.JScriptNet
 {
     /// <summary>Wraps JScript.NET compiler as MSBuild task</summary>
-   public class Jsc : Task
+    public class Jsc : Task
     {
         /// <summary>Gets or sets name of binary output file</summary>
         /// <value>If not specified output file name is inferred from first file name</value>
@@ -27,9 +31,11 @@ namespace Dzonny.JScriptNet
         /// <summary>Gets or sets assembly platform</summary>
         /// <value>Possible values are: x86, Itanium, x64, any cpu (default)</value>
         public string Platform { get; set; }
-        /// <summary>gets or sest value indicating if assemblies are automatically referenced based on imported namespaces and fully-qualified names</summary>
+
+        /// <summary>Gets or sest value indicating if assemblies are automatically referenced based on imported namespaces and fully-qualified names</summary>
         /// <value>On by default (unless <see cref="NoStdLib"/> is true)</value>
-        public bool? Autoref { get; set; }
+        [DefaultValue(true)]
+        public bool Autoref { get; set; } = true;
         /// <summary>Gets or sets additional directories to search in for references</summary>
         public string[] Libraries { get; set; }
         /// <summary>Gets or sets assembly files to reference metadata from</summary>
@@ -41,22 +47,30 @@ namespace Dzonny.JScriptNet
         /// <summary>Gets or sets linked resources</summary>
         public ResourceInfo[] LinkedResources { get; set; }
         /// <summary>Gets or sets value indicating if debugging information are emitted</summary>
-        public bool? Debug { get; set; }
+        [DefaultValue(false)]
+        public bool Debug { get; set; }
         /// <summary>Gets or sets value indicating if some language features are turned off to allow better code generation</summary>
-        public bool? Fast { get; set; }
+        [DefaultValue(false)]
+        public bool Fast { get; set; }
         /// <summary>Gets or sets value indicating if all warnings are treated as errors</summary>
-        public bool? WarningsAsErrors { get; set; }
+        [DefaultValue(false)]
+        public bool WarningsAsErrors { get; set; }
+
         /// <summary>Gets or sets warning level</summary>
         /// <value>0-4</value>
-        public int? WarningLevel { get; set; }
+        [DefaultValue(1)]
+        public int WarningLevel { get; set; } = 1;
         /// <summary>Gets or sets defined conditional compilation symbols</summary>
         public string[] Defines { get; set; }
         /// <summary>Gets or sets value indicating if <c>print()</c> function is provided</summary>
-        public bool? AllowPrintFunction { get; set; }
+        [DefaultValue(false)]
+        public bool AllowPrintFunction { get; set; }
         /// <summary>Gets or sets value indicating if standard library (mscorlib.dll) is not imported and <see cref="Autoref"/> are changed to default off</summary>
-        public bool? NoStdLib { get; set; }
+        [DefaultValue(false)]
+        public bool NoStdLib { get; set; }
         /// <summary>Gets or sets value indicating default for members not marked <c>override</c> or <c>hide</c></summary>
-        public bool? VersionSafe { get; set; }
+        [DefaultValue(false)]
+        public bool VersionSafe { get; set; }
         /// <summary>gets or sets files to complie</summary>
         [Required]
         public string[] Files { get; set; }
@@ -65,15 +79,25 @@ namespace Dzonny.JScriptNet
         /// <returns>true if the task executed successfully; otherwise, false.</returns>
         public override bool Execute()
         {
+            //#if DEBUG
+            //            using (var currentProcess = Process.GetCurrentProcess())
+            //                MessageBox.Show($"Attach to process {IO.Path.GetFileName(currentProcess.StartInfo.FileName)} PID {currentProcess.Id}");
+            //#endif
             using (var jsc = new Process())
             {
                 jsc.StartInfo.UseShellExecute = false;
                 jsc.StartInfo.FileName = JscExe;
                 StringBuilder cmd = new StringBuilder();
-                if (!string.IsNullOrEmpty(Out)) cmd.Append($"/out:\"{Out}\" ");
+                if (!string.IsNullOrEmpty(Out))
+                {
+                    string outDir = IO.Path.GetDirectoryName(Out);
+                    if (!string.IsNullOrEmpty(outDir) && !IO.Directory.Exists(outDir))
+                        IO.Directory.CreateDirectory(outDir);
+                    cmd.Append($"/out:\"{Out}\" ");
+                }
                 if (!string.IsNullOrEmpty(Target)) cmd.Append($"/t:\"{Target}\" ");
                 if (!string.IsNullOrEmpty(Platform)) cmd.Append($"/platform:\"{Platform}\" ");
-                if (Autoref.HasValue) cmd.Append($"/autoref{(Autoref.Value ? "+" : "-")} ");
+                cmd.Append($"/autoref{(Autoref ? "+" : "-")} ");
                 if (Libraries != null)
                     foreach (var lib in Libraries)
                         cmd.Append($"/lib:\"{lib}\" ");
@@ -111,29 +135,46 @@ namespace Dzonny.JScriptNet
                         cmd.Append(" ");
                     }
                 }
-                if (Debug.HasValue) cmd.Append($"/debug{(Debug.Value ? "+" : "-")} ");
-                if (Fast.HasValue) cmd.Append($"/fast{(Fast.Value ? "+" : "-")} ");
-                if (WarningsAsErrors.HasValue) cmd.Append($"/warnaserror{(WarningsAsErrors.Value ? "+" : "-")} ");
-                if (WarningLevel.HasValue) cmd.Append($"/w:{WarningLevel} ");
+                cmd.Append($"/debug{(Debug ? "+" : "-")} ");
+                cmd.Append($"/fast{(Fast ? "+" : "-")} ");
+                cmd.Append($"/warnaserror{(WarningsAsErrors ? "+" : "-")} ");
+                cmd.Append($"/w:{WarningLevel} ");
                 if (Defines != null)
                     foreach (var symbol in Defines)
                         cmd.Append($"/d:\"{symbol}\" ");
-                if (AllowPrintFunction.HasValue) cmd.Append($"/print{(AllowPrintFunction.Value ? "+" : "-")} ");
-                if (NoStdLib.HasValue) cmd.Append($"/nostdlib{(NoStdLib.Value ? "+" : "-")} ");
-                if (VersionSafe.HasValue) cmd.Append($"/versionsafe{(VersionSafe.Value ? "+" : "-")} ");
+                cmd.Append($"/print{(AllowPrintFunction ? "+" : "-")} ");
+                cmd.Append($"/nostdlib{(NoStdLib ? "+" : "-")} ");
+                cmd.Append($"/versionsafe{(VersionSafe ? "+" : "-")} ");
 
                 cmd.Append("/nologo ");
-                if(Files!=null )
+                if (Files != null)
                     foreach (var file in Files)
-                        cmd.Append(file + " ");
+                        cmd.Append($"\"{file}\" ");
                 jsc.StartInfo.Arguments = cmd.ToString();
-                Log.LogCommandLine(jsc + " " + jsc.StartInfo.Arguments);
+                Log.LogCommandLine(jsc.StartInfo.FileName + " " + jsc.StartInfo.Arguments);
+                Log.LogMessage($"Running {jsc.StartInfo.FileName} {jsc.StartInfo.Arguments}");
+                jsc.StartInfo.RedirectStandardError = true;
+                jsc.StartInfo.RedirectStandardOutput = true;
+                jsc.ErrorDataReceived += (sender, e) => { if (e.Data != null) Log.LogError(e.Data); };
+                jsc.OutputDataReceived += (sender, e) =>
+                {
+                    if (e.Data != null)
+                    {
+                        if (e.Data.IndexOf("error", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                            Log.LogError(e.Data);
+                        else if (e.Data.IndexOf("warning", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                            Log.LogWarning(e.Data);
+                        else Log.LogMessage(e.Data);
+                    }
+                };
                 jsc.Start();
+                jsc.BeginErrorReadLine();
+                jsc.BeginOutputReadLine();
                 jsc.WaitForExit();
                 if (jsc.ExitCode != 0)
-                    Log.LogError($"Process {System.IO.Path.GetFileName(JscExe)} exited with code {jsc.ExitCode}");
+                    Log.LogError($"Process {System.IO.Path.GetFileName(jsc.StartInfo.FileName)} {jsc.StartInfo.Arguments} exited with code {jsc.ExitCode}");
                 else
-                    Log.LogMessage($"Process {System.IO.Path.GetFileName(JscExe)} exited with code {jsc.ExitCode}");
+                    Log.LogMessage($"Process {System.IO.Path.GetFileName(jsc.StartInfo.FileName)} {jsc.StartInfo.Arguments} exited with code {jsc.ExitCode}");
                 return jsc.ExitCode == 0;
             }
         }

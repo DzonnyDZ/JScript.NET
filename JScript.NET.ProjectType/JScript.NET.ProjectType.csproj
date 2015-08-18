@@ -26,21 +26,20 @@
     <StartAction>Program</StartAction>
     <StartProgram>$(MSBuildProgramFiles32)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</StartProgram>
     <StartArguments>/rootSuffix Exp</StartArguments>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DocumentationFile>$(OutputPath)$(TargetName).xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Dzonny.JScriptNet.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -166,6 +165,12 @@
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
       <VSIXSubPath>ProjectTemplates</VSIXSubPath>
     </ProjectReference>
+    <ProjectReference Include="..\JScript.NET.Tasks\JScript.NET.Tasks.csproj">
+      <Project>{3DC58AB3-F67C-4481-A981-5E8A194118AE}</Project>
+      <Name>JScript.NET.Tasks</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
   </ItemGroup>
   <!-- 
   Resources for our new project system
@@ -180,7 +185,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Jsc.cs" />
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="JSNetDebuggerLaunchProvider.cs" />
     <Compile Include="MyConfiguredProject.cs" />
     <Compile Include="MyUnconfiguredProject.cs" />
     <Compile Include="ProjectProperties.cs" />
@@ -214,7 +222,7 @@
     <None Include="BuildSystem\Rules\ProjectItemsSchema.xaml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="BuildSystem\Rules\csharp.browseobject.xaml">
+    <None Include="BuildSystem\Rules\JSNet.browseobject.xaml">
       <SubType>Designer</SubType>
     </None>
     <XamlPropertyRule Include="BuildSystem\Rules\general.xaml">
@@ -254,7 +262,7 @@
     <XamlPropertyRule Include="BuildSystem\Rules\ResolvedProjectReference.xaml">
       <SubType>Designer</SubType>
     </XamlPropertyRule>
-    <XamlPropertyRule Include="BuildSystem\Rules\resolvedsdkreference.xaml">
+    <XamlPropertyRule Include="BuildSystem\Rules\ResolvedSDKReference.xaml">
       <SubType>Designer</SubType>
     </XamlPropertyRule>
     <XamlPropertyRule Include="BuildSystem\Rules\scc.xaml">
@@ -266,9 +274,6 @@
     <XamlPropertyRule Include="BuildSystem\Rules\debugger_general.xaml">
       <SubType>Designer</SubType>
     </XamlPropertyRule>
-    <XamlPropertyRule Include="BuildSystem\Rules\csharp.xaml">
-      <SubType>Designer</SubType>
-    </XamlPropertyRule>
     <XamlPropertyRule Include="BuildSystem\Rules\EmbeddedResource.xaml">
       <SubType>Designer</SubType>
     </XamlPropertyRule>
@@ -278,17 +283,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <XamlPropertyRule Include="BuildSystem\Rules\js.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </XamlPropertyRule>
+    <XamlPropertyRule Include="BuildSystem\Rules\JSNetDebugger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </XamlPropertyRule>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.VisualStudio.ProjectSystem.Analyzers.14.0.50729-pre\tools\Microsoft.VisualStudio.ProjectSystem.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.VisualStudio.Threading.Analyzers.14.0.50702-pre\tools\Microsoft.VisualStudio.Threading.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE[1].txt">
+    <Content Include="BuildSystem\DeployedBuildSystem\Dzonny.JScriptNet.Tasks.dll" />
+    <Content Include="BuildSystem\DeployedBuildSystem\Dzonny.JScriptNet.Tasks.pdb" />
+    <Content Include="BuildSystem\DeployedBuildSystem\Dzonny.JScriptNet.Tasks.xml" />
+    <Content Include="LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- TODO: This copies the build authoring to a well-known location so that on the machine this project builds on,

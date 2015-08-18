@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe</StartProgram>
+    <StartArguments>"C:\Users\jan.zaruba7393\Documents\Visual Studio 2015\Projects\JScript.NET\JScript.NET.ProjectTemplate\JScript.NET.jsnproj"</StartArguments>
+  </PropertyGroup>
+</Project>

@@ -2,19 +2,28 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup Label="Globals">
         <CustomProjectExtensionsPath>$(LocalAppData)\CustomProjectSystems\JScript.NET\</CustomProjectExtensionsPath>
+        <SchemaVersion>2.0</SchemaVersion>
     </PropertyGroup>
 
     <Import Project="$(CustomProjectExtensionsPath)JSNProj.Default.props" />
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" Label="Configuration"/>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" Label="Configuration"/>
-
+    <PropertyGroup>
+        <OutputType>exe</OutputType>
+        <TargetExtension Condition="'$(OutputType)'=='Library'">.dll</TargetExtension>
+        <TargetExtension Condition="'$(TargetExtension)'==''">.exe</TargetExtension>
+        <OutputName>$(AssemblyName)$(TargetExtension)</OutputName>
+        <TargetPath>$(OutputPath)$(OutputName)</TargetPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" Label="Configuration">
+        <Optimize>false</Optimize>
+        <Debug>true</Debug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" Label="Configuration">
+        <Optimize>true</Optimize>
+        <Debug>false</Debug>
+    </PropertyGroup>
     <Import Project="$(CustomProjectExtensionsPath)JSNProj.props" />
 
-    <PropertyGroup>
-        <SchemaVersion>2.0</SchemaVersion>
-    </PropertyGroup>
-    <ItemGroup>
+    <ItemGroup Label="References">
         <Reference Include="mscorlib" />
         <Reference Include="System" />
     </ItemGroup>
@@ -30,8 +39,14 @@
 
     <Import Project="$(CustomProjectExtensionsPath)JScriptNet.targets" />
 
+    <Target Name="Rebuild">
+        <CallTarget Targets="Build"/>
+    </Target>
     <Target Name="Build">
-        <Jsc Out="$(TargetFileName)" Files="@(Compile)" Target="$(Target)" Platform="$(Platform)"/>
+        <GetFrameworkPath>
+            <Output TaskParameter="Path" PropertyName="FrameworkPath" />
+        </GetFrameworkPath>
+        <Jsc Out="$(TargetPath)" Files="@(Compile)" Target="$(OutputType)" Platform="$(Platform)" JscExe="$(FrameworkPath)\jsc.exe" />
     </Target>
 
     <!-- This next bit is required unless the macro used to Import your targets is defined in an MSBuild toolset. -->

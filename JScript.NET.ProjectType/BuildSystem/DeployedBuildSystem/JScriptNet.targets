@@ -1,16 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildThisFileDirectory)\JScriptNetProject.targets" />
-    <UsingTask TaskName="Dzonny.JScriptNet.Jsc" AssemblyFile="$(MSBuildThisFileDirectory)Dzonny.JScriptNet.dll"/>
+    <UsingTask TaskName="Dzonny.JScriptNet.Jsc" AssemblyFile="$(MSBuildThisFileDirectory)Dzonny.JScriptNet.Tasks.dll"/>
 
     <ItemGroup>
         <ProjectCapability Include="ReferencesFolder"/>
 
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\csProjectItemsSchema.xaml;"/>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\csharp.xaml;">
-            <Context>File</Context>
-        </PropertyPageSchema>
-        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\csharp.browseobject.xaml;">
+        <PropertyPageSchema Include="$(MSBuildThisFileDirectory)Rules\js.xaml;">
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
     </ItemGroup>
