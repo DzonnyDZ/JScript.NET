@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectType", "JScript.NET\JScript.NET.ProjectType\JScript.NET.ProjectType.csproj", "{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectType", "JScript.NET.ProjectType\JScript.NET.ProjectType.csproj", "{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectTemplate", "JScript.NET\JScript.NET.ProjectTemplate\JScript.NET.ProjectTemplate.csproj", "{C5FB8941-F7AE-4EB7-B948-B070822B5593}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectTemplate", "JScript.NET.ProjectTemplate\JScript.NET.ProjectTemplate.csproj", "{C5FB8941-F7AE-4EB7-B948-B070822B5593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.Tasks", "JScript.NET.Tasks\JScript.NET.Tasks.csproj", "{3DC58AB3-F67C-4481-A981-5E8A194118AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
