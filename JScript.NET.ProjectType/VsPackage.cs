@@ -9,6 +9,8 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 ***************************************************************************/
 
+using System.Windows;
+
 namespace Dzonny.JScriptNet
 {
     using System;
@@ -27,8 +29,21 @@ namespace Dzonny.JScriptNet
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [Description("A custom project type based on CPS")]
     [Guid(VsPackage.PackageGuid)]
+    [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids80.SolutionExists)]
+    [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids80.NoSolution )]
     public sealed class VsPackage : Package
     {
+        /// <summary>Type initializer - initializes the class <see cref="VsPackage"/></summary>
+        static VsPackage()
+        {
+            EnsureCustomProjectSystem();
+        }
+
+        private static void EnsureCustomProjectSystem()
+        {
+            
+        }
+
         /// <summary>
         /// The GUID for this package.
         /// </summary>

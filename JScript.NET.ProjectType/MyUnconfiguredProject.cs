@@ -9,6 +9,8 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 ***************************************************************************/
 
+using System.Windows;
+
 namespace Dzonny.JScriptNet
 {
     using System;
