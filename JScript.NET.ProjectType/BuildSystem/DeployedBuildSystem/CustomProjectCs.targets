@@ -25,4 +25,8 @@
             <Context>BrowseObject</Context>
         </PropertyPageSchema>
     </ItemGroup>
+
+    <PropertyGroup>
+        <TargetPlatformWinMDLocation Condition="'$(TargetPlatformWinMDLocation)'==''">C:\</TargetPlatformWinMDLocation>
+    </PropertyGroup>
 </Project>
