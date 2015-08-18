@@ -3,19 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectTemplate", "JScript.NET.ProjectTemplate\JScript.NET.ProjectTemplate.csproj", "{8D07BBDE-DF34-4EBB-ABC9-44769B292522}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectType", "JScript.NET\JScript.NET.ProjectType\JScript.NET.ProjectType.csproj", "{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectType", "JScript.NET.ProjectType\JScript.NET.ProjectType.csproj", "{FF0D1C53-9A42-4030-B3A4-266B17921492}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3DC58AB3-F67C-4481-A981-5E8A194118AE} = {3DC58AB3-F67C-4481-A981-5E8A194118AE}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.Tasks", "JScript.NET.Tasks\JScript.NET.Tasks.csproj", "{3DC58AB3-F67C-4481-A981-5E8A194118AE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B02F53D6-6172-459E-893A-5BC922565C94}"
-	ProjectSection(SolutionItems) = preProject
-		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JScript.NET.ProjectTemplate", "JScript.NET\JScript.NET.ProjectTemplate\JScript.NET.ProjectTemplate.csproj", "{C5FB8941-F7AE-4EB7-B948-B070822B5593}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,18 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D07BBDE-DF34-4EBB-ABC9-44769B292522}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF0D1C53-9A42-4030-B3A4-266B17921492}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DC58AB3-F67C-4481-A981-5E8A194118AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93E20E5-23FD-4C2C-B8B5-1388EB46D1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5FB8941-F7AE-4EB7-B948-B070822B5593}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
