@@ -12,13 +12,12 @@
         <TargetExtension Condition="'$(TargetExtension)'==''">.exe</TargetExtension>
         <OutputName>$(AssemblyName)$(TargetExtension)</OutputName>
         <TargetPath>$(OutputPath)$(OutputName)</TargetPath>
+        <Optimize>false</Optimize>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" Label="Configuration">
-        <Optimize>false</Optimize>
         <Debug>true</Debug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'" Label="Configuration">
-        <Optimize>true</Optimize>
         <Debug>false</Debug>
     </PropertyGroup>
 

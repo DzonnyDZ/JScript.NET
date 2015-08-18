@@ -11,7 +11,7 @@
         <GetFrameworkPath>
             <Output TaskParameter="Path" PropertyName="FrameworkPath" />
         </GetFrameworkPath>
-        <Jsc Out="$(TargetPath)" Files="@(Compile)" Target="$(OutputType)" Platform="$(Platform)" JscExe="$(FrameworkPath)\jsc.exe" Debug="$(Debug)" />
+        <Jsc Out="$(TargetPath)" Files="@(Compile)" Target="$(OutputType)" Platform="$(Platform)" JscExe="$(FrameworkPath)\jsc.exe" Debug="$(Debug)" Fast="$(Optimize)" />
     </Target>
 
     <ItemGroup>
