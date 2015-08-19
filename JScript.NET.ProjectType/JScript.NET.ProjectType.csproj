@@ -323,7 +323,8 @@
         <Copy SourceFiles="@(BuildSystemToCopy)" DestinationFiles="@(BuildSystemToCopy->'$(LocalAppData)\CustomProjectSystems\JScript.NET\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
         <Copy SourceFiles="@(RulesToCopy)" DestinationFiles="@(RulesToCopy->'$(LocalAppData)\CustomProjectSystems\JScript.NET\Rules\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
 
-        <Zip CompressPath="$(IntermediateOutputPath)CustomBuildSystem" ZipFileName="$(IntermediateOutputPath)CustomBuildSystem.zip" RemoveRoot="$(IntermediateOutputPath)CustomBuildSystem" TaskAction="Create" />
+        <Zip TaskAction="Create" CompressPath="$(IntermediateOutputPath)CustomBuildSystem" ZipFileName="$(IntermediateOutputPath)CustomBuildSystem.zip" RemoveRoot="$(IntermediateOutputPath)CustomBuildSystem"/>
+        <Zip TaskAction="AddFiles" CompressFiles="$(IntermediateOutputPath)CustomBuildSystem.zip" ZipFileName="$(OutDir)$(TargetName).vsix" RemoveRoot="$(IntermediateOutputPath)"/>
     </Target>
     <Import Project="..\packages\Microsoft.VisualStudio.SDK.VsixSuppression.14.0.50703\build\Microsoft.VisualStudio.SDK.VsixSuppression.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.VsixSuppression.14.0.50703\build\Microsoft.VisualStudio.SDK.VsixSuppression.targets')" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
