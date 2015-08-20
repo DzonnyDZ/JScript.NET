@@ -39,9 +39,11 @@ namespace Dzonny.JScriptNet
             EnsureCustomProjectSystem();
         }
 
+        /// <summary>Ensures that up-to-date version for custom project system is installed</summary>
         private static void EnsureCustomProjectSystem()
         {
-            
+            if (CustomProjectSystemInstaller.NeedsDeployment())
+                CustomProjectSystemInstaller.Deploy();
         }
 
         /// <summary>
