@@ -151,8 +151,10 @@ namespace Dzonny.JScriptNet
                     foreach (var file in Files)
                         cmd.Append($"\"{file}\" ");
                 jsc.StartInfo.Arguments = cmd.ToString();
+
                 Log.LogCommandLine(jsc.StartInfo.FileName + " " + jsc.StartInfo.Arguments);
                 Log.LogMessage($"Running {jsc.StartInfo.FileName} {jsc.StartInfo.Arguments}");
+
                 jsc.StartInfo.RedirectStandardError = true;
                 jsc.StartInfo.RedirectStandardOutput = true;
                 jsc.ErrorDataReceived += (sender, e) => { if (e.Data != null) Log.LogError(e.Data); };

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="JScript.NET.ProjectType..42d3ff42-1612-4f1a-9e53-23cb72f33ae2" Version="0.6" Language="en-US" Publisher="JScript.NET.ProjectType" />
+        <Identity Id="JScript.NET.ProjectType..42d3ff42-1612-4f1a-9e53-23cb72f33ae2" Version="0.7" Language="en-US" Publisher="JScript.NET.ProjectType" />
         <DisplayName>JScript.NET VSIX</DisplayName>
         <Description xml:space="preserve">A template for creating a JScript.NET projects. Allows to create EXE applications or DLLs in JScript.NET (a flawor of JavaScript).</Description>
         <MoreInfo>https://github.com/DzonnyDZ/JScript.NET</MoreInfo>
