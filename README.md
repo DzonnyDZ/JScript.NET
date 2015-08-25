@@ -33,3 +33,7 @@ So far the project is in very erly stage, but it already allows you to wrtite, r
 * VS editor is reporting lot of false warnings and errors.
 * Impossible to add new files to project via right-click | Add | New item
 ** Copy-paste the default item instead, or create the item outside of Visual Studio and then include it in a project.
+
+Download from VS Gallery https://visualstudiogallery.msdn.microsoft.com/b45da343-89fd-4359-84ac-8530fbc14890 or install directly from VS
+
+This is sister project of ILProj https://github.com/DzonnyDZ/ILProj
