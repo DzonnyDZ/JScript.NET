@@ -1,16 +1,13 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Text;
-using System.Windows.Forms;
+using Dzonny.VSLangProj;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 using IO = System.IO;
 
 namespace Dzonny.JScriptNet
 {
     /// <summary>Wraps JScript.NET compiler as MSBuild task</summary>
-    public class Jsc : Task
+    public class Jsc : CommandLineTask
     {
         /// <summary>Gets or sets name of binary output file</summary>
         /// <value>If not specified output file name is inferred from first file name</value>
@@ -42,7 +39,7 @@ namespace Dzonny.JScriptNet
         public string[] References { get; set; }
         /// <summary>Gets or sets Win32 resource files</summary>
         public string[] Win32Resources { get; set; }
-        /// <summary>Gets or sets embeded resources</summary>
+        /// <summary>Gets or sets embedded resources</summary>
         public ResourceInfo[] Resources { get; set; }
         /// <summary>Gets or sets linked resources</summary>
         public ResourceInfo[] LinkedResources { get; set; }
@@ -71,120 +68,92 @@ namespace Dzonny.JScriptNet
         /// <summary>Gets or sets value indicating default for members not marked <c>override</c> or <c>hide</c></summary>
         [DefaultValue(false)]
         public bool VersionSafe { get; set; }
-        /// <summary>gets or sets files to complie</summary>
+        /// <summary>gets or sets files to compile</summary>
         [Required]
         public string[] Files { get; set; }
 
-        /// <summary>Executes a task.</summary>
-        /// <returns>true if the task executed successfully; otherwise, false.</returns>
-        public override bool Execute()
+        /// <summary>Gets command line for the process</summary>
+        /// <returns>Command line arguments</returns>
+        protected override string GetCommandLine()
         {
-            //#if DEBUG
-            //            using (var currentProcess = Process.GetCurrentProcess())
-            //                MessageBox.Show($"Attach to process {IO.Path.GetFileName(currentProcess.StartInfo.FileName)} PID {currentProcess.Id}");
-            //#endif
-            using (var jsc = new Process())
+            StringBuilder cmd = new StringBuilder();
+            if (!string.IsNullOrEmpty(Out))
             {
-                jsc.StartInfo.UseShellExecute = false;
-                jsc.StartInfo.FileName = JscExe;
-                StringBuilder cmd = new StringBuilder();
-                if (!string.IsNullOrEmpty(Out))
+                string outDir = IO.Path.GetDirectoryName(Out);
+                if (!string.IsNullOrEmpty(outDir) && !IO.Directory.Exists(outDir))
+                    IO.Directory.CreateDirectory(outDir);
+                cmd.Append($"/out:\"{Out}\" ");
+            }
+            if (!string.IsNullOrEmpty(Target)) cmd.Append($"/t:\"{Target}\" ");
+            if (!string.IsNullOrEmpty(Platform)) cmd.Append($"/platform:\"{Platform}\" ");
+            cmd.Append($"/autoref{(Autoref ? "+" : "-")} ");
+            if (Libraries != null)
+                foreach (var lib in Libraries)
+                    cmd.Append($"/lib:\"{lib}\" ");
+            if (References != null)
+            {
+                cmd.Append("/r:");
+                int i = 0;
+                foreach (var @ref in References)
                 {
-                    string outDir = IO.Path.GetDirectoryName(Out);
-                    if (!string.IsNullOrEmpty(outDir) && !IO.Directory.Exists(outDir))
-                        IO.Directory.CreateDirectory(outDir);
-                    cmd.Append($"/out:\"{Out}\" ");
+                    if (i++ > 0) cmd.Append(";");
+                    cmd.Append($"\"{@ref}\"");
                 }
-                if (!string.IsNullOrEmpty(Target)) cmd.Append($"/t:\"{Target}\" ");
-                if (!string.IsNullOrEmpty(Platform)) cmd.Append($"/platform:\"{Platform}\" ");
-                cmd.Append($"/autoref{(Autoref ? "+" : "-")} ");
-                if (Libraries != null)
-                    foreach (var lib in Libraries)
-                        cmd.Append($"/lib:\"{lib}\" ");
-                if (References != null)
+                cmd.Append(" ");
+            }
+            if (Win32Resources != null)
+                foreach (var res in Win32Resources)
+                    cmd.Append($"/win32res:\"{res}\" ");
+            if (Resources != null)
+            {
+                foreach (var res in Resources)
                 {
-                    cmd.Append("/r:");
-                    int i = 0;
-                    foreach (var @ref in References)
-                    {
-                        if (i++ > 0) cmd.Append(";");
-                        cmd.Append($"\"{@ref}\"");
-                    }
+                    cmd.Append($"/res:\"{res.FileName}\"");
+                    if (!string.IsNullOrEmpty(res.Name) || res.Public.HasValue) cmd.Append($",\"{res.Name}\"");
+                    if (res.Public.HasValue) cmd.Append("," + (res.Public.Value ? "public" : "private"));
                     cmd.Append(" ");
                 }
-                if (Win32Resources != null)
-                    foreach (var res in Win32Resources)
-                        cmd.Append($"/win32res:\"{res}\" ");
-                if (Resources != null)
-                {
-                    foreach (var res in Resources)
-                    {
-                        cmd.Append($"/res:\"{res.FileName}\"");
-                        if (!string.IsNullOrEmpty(res.Name) || res.Public.HasValue) cmd.Append($",\"{res.Name}\"");
-                        if (res.Public.HasValue) cmd.Append("," + (res.Public.Value ? "public" : "private"));
-                        cmd.Append(" ");
-                    }
-                }
-                if (LinkedResources != null)
-                {
-                    foreach (var res in LinkedResources)
-                    {
-                        cmd.Append($"/linkres:\"{res.FileName}\"");
-                        if (!string.IsNullOrEmpty(res.Name) || res.Public.HasValue) cmd.Append($",\"{res.Name}\"");
-                        if (res.Public.HasValue) cmd.Append("," + (res.Public.Value ? "public" : "private"));
-                        cmd.Append(" ");
-                    }
-                }
-                cmd.Append($"/debug{(Debug ? "+" : "-")} ");
-                cmd.Append($"/fast{(Fast ? "+" : "-")} ");
-                cmd.Append($"/warnaserror{(WarningsAsErrors ? "+" : "-")} ");
-                cmd.Append($"/w:{WarningLevel} ");
-                if (Defines != null)
-                    foreach (var symbol in Defines)
-                        cmd.Append($"/d:\"{symbol}\" ");
-                cmd.Append($"/print{(AllowPrintFunction ? "+" : "-")} ");
-                cmd.Append($"/nostdlib{(NoStdLib ? "+" : "-")} ");
-                cmd.Append($"/versionsafe{(VersionSafe ? "+" : "-")} ");
-
-                cmd.Append("/nologo ");
-                if (Files != null)
-                    foreach (var file in Files)
-                        cmd.Append($"\"{file}\" ");
-                jsc.StartInfo.Arguments = cmd.ToString();
-
-                Log.LogCommandLine(jsc.StartInfo.FileName + " " + jsc.StartInfo.Arguments);
-                Log.LogMessage($"Running {jsc.StartInfo.FileName} {jsc.StartInfo.Arguments}");
-
-                jsc.StartInfo.RedirectStandardError = true;
-                jsc.StartInfo.RedirectStandardOutput = true;
-                jsc.ErrorDataReceived += (sender, e) => { if (e.Data != null) Log.LogError(e.Data); };
-                jsc.OutputDataReceived += (sender, e) =>
-                {
-                    if (e.Data != null)
-                    {
-                        if (e.Data.IndexOf("error", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                            Log.LogError(e.Data);
-                        else if (e.Data.IndexOf("warning", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                            Log.LogWarning(e.Data);
-                        else Log.LogMessage(e.Data);
-                    }
-                };
-                jsc.Start();
-                jsc.BeginErrorReadLine();
-                jsc.BeginOutputReadLine();
-                jsc.WaitForExit();
-                if (jsc.ExitCode != 0)
-                    Log.LogError($"Process {System.IO.Path.GetFileName(jsc.StartInfo.FileName)} {jsc.StartInfo.Arguments} exited with code {jsc.ExitCode}");
-                else
-                    Log.LogMessage($"Process {System.IO.Path.GetFileName(jsc.StartInfo.FileName)} {jsc.StartInfo.Arguments} exited with code {jsc.ExitCode}");
-                return jsc.ExitCode == 0;
             }
+            if (LinkedResources != null)
+            {
+                foreach (var res in LinkedResources)
+                {
+                    cmd.Append($"/linkres:\"{res.FileName}\"");
+                    if (!string.IsNullOrEmpty(res.Name) || res.Public.HasValue) cmd.Append($",\"{res.Name}\"");
+                    if (res.Public.HasValue) cmd.Append("," + (res.Public.Value ? "public" : "private"));
+                    cmd.Append(" ");
+                }
+            }
+            cmd.Append($"/debug{(Debug ? "+" : "-")} ");
+            cmd.Append($"/fast{(Fast ? "+" : "-")} ");
+            cmd.Append($"/warnaserror{(WarningsAsErrors ? "+" : "-")} ");
+            cmd.Append($"/w:{WarningLevel} ");
+            if (Defines != null)
+                foreach (var symbol in Defines)
+                    cmd.Append($"/d:\"{symbol}\" ");
+            cmd.Append($"/print{(AllowPrintFunction ? "+" : "-")} ");
+            cmd.Append($"/nostdlib{(NoStdLib ? "+" : "-")} ");
+            cmd.Append($"/versionsafe{(VersionSafe ? "+" : "-")} ");
+
+            cmd.Append("/nologo ");
+            if (Files != null)
+                foreach (var file in Files)
+                    cmd.Append($"\"{file}\" ");
+            return cmd.ToString();
         }
 
+        /// <summary>Gets path to EXE file to launch</summary>
+        protected override string Exe => JscExe;
+
+
+        /// <summary>Provides information about resources</summary>
         public struct ResourceInfo
         {
+            /// <summary>Gets or sets resource file name</summary>
             public string FileName { get; set; }
+            /// <summary>Gets or sets resource name</summary>
             public string Name { get; set; }
+            /// <summary>Gets or sets value indicating if the resource is public</summary>
             public bool? Public { get; set; }
         }
     }
