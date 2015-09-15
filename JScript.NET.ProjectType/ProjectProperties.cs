@@ -11,7 +11,6 @@ namespace Dzonny.JScriptNet
     using Microsoft.VisualStudio.ProjectSystem.Utilities;
 
     [Export]
-    [AppliesTo(MyUnconfiguredProject.UniqueCapability)]
     internal partial class ProjectProperties : StronglyTypedPropertyAccess
     {
         /// <summary>
