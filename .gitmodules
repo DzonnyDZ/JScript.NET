@@ -1,0 +1,3 @@
+[submodule "VSLangProj.Shared"]
+	path = VSLangProj.Shared
+	url = https://github.com/DzonnyDZ/VSLangProj.Shared
