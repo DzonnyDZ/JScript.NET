@@ -185,7 +185,7 @@
     <EmbeddedResource Include="Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="VsPackage.resx">
+    <EmbeddedResource Include="JScriptNetVsPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -194,7 +194,7 @@
     <Compile Include="MyConfiguredProject.cs" />
     <Compile Include="MyUnconfiguredProject.cs" />
     <Compile Include="ProjectProperties.cs" />
-    <Compile Include="VsPackage.cs" />
+    <Compile Include="JScriptNetVsPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>

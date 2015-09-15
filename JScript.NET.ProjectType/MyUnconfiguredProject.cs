@@ -27,8 +27,8 @@ namespace Dzonny.JScriptNet
 
     [Export]
     [AppliesTo(MyUnconfiguredProject.UniqueCapability)]
-    [ProjectTypeRegistration(VsPackage.ProjectTypeGuid, "JScript.NET", "#2", ProjectExtension, Language, resourcePackageGuid: VsPackage.PackageGuid, PossibleProjectExtensions = ProjectExtension, ProjectTemplatesDir = @"..\..\Templates\Projects\MyCustomProject")]
-    [ProvideProjectItem(VsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\MyCustomProject", 500)]
+    [ProjectTypeRegistration(JScriptNetVsPackage.ProjectTypeGuid, "JScript.NET", "#2", ProjectExtension, Language, resourcePackageGuid: JScriptNetVsPackage.PackageGuid, PossibleProjectExtensions = ProjectExtension, ProjectTemplatesDir = @"..\..\Templates\Projects\MyCustomProject")]
+    [ProvideProjectItem(JScriptNetVsPackage.ProjectTypeGuid, "My Items", @"..\..\Templates\ProjectItems\MyCustomProject", 500)]
     internal class MyUnconfiguredProject
     {
         /// <summary>

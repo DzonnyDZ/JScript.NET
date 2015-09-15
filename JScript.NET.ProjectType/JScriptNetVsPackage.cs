@@ -17,10 +17,10 @@ namespace Dzonny.JScriptNet
     [Guid(PackageGuid)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [ProvideAutoLoad(UIContextGuids80.NoSolution)]
-    public sealed class VsPackage : VsPackageBase
+    public sealed class JScriptNetVsPackage : ProjectSystemPackage
     {                       
-        /// <summary>CTor - creates a new instance of the <see cref="VsPackage"/> class</summary>
-        public VsPackage() : base("JScript.NET") { }
+        /// <summary>CTor - creates a new instance of the <see cref="JScriptNetVsPackage"/> class</summary>
+        public JScriptNetVsPackage() : base("JScript.NET") { }
 
         /// <summary>The GUID for this package.</summary>
         public const string PackageGuid = "b584f11e-5e77-40e8-bbfd-f70b550504ba";
