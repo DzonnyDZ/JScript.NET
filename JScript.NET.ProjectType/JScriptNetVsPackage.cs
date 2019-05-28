@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Dzonny.VSLangProj;
-using shell15::Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using shell15::Microsoft.VisualStudio.Shell;
 
 namespace Dzonny.JScriptNet
 {

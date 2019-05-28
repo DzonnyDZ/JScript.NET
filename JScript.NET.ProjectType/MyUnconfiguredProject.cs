@@ -12,10 +12,8 @@ extern alias shell15;
 using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.ProjectSystem.VS;
-using shell15::Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.ProjectSystem.Utilities;
-using Microsoft.VisualStudio.ProjectSystem.Designers;
+using shell15::Microsoft.VisualStudio.Shell;
 
 namespace Dzonny.JScriptNet
 {
@@ -56,8 +54,8 @@ namespace Dzonny.JScriptNet
         [Import]
         internal IActiveConfiguredProjectSubscriptionService SubscriptionService { get; }
 
-        [Import]
-        internal IThreadHandling ThreadHandling { get; }
+        //[Import]
+        //internal IThreadHandling ThreadHandling { get; }
 
         [Import]
         internal ActiveConfiguredProject<ConfiguredProject> ActiveConfiguredProject { get; }

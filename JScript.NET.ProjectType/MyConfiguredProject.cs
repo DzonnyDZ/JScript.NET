@@ -11,7 +11,6 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.ProjectSystem;
-using Microsoft.VisualStudio.ProjectSystem.Utilities;
 
 namespace Dzonny.JScriptNet
 {
