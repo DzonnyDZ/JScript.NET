@@ -1,8 +1,9 @@
-﻿using System.Reflection;
+﻿extern alias shell15;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: Microsoft.VisualStudio.Shell.ProvideCodeBase(CodeBase = @"$PackageFolder$\Dzonny.JScriptNet.dll")]
+[assembly: shell15::Microsoft.VisualStudio.Shell.ProvideCodeBase(CodeBase = @"$PackageFolder$\Dzonny.JScriptNet.dll")]
 
 [assembly: AssemblyTitle("JScript.NET.ProjectType")]
 [assembly: AssemblyDescription("JScript.NET project type for Visual Studio")]

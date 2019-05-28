@@ -1,7 +1,8 @@
-﻿using System.ComponentModel;
+﻿extern alias shell15;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Dzonny.VSLangProj;
-using Microsoft.VisualStudio.Shell;
+using shell15::Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace Dzonny.JScriptNet

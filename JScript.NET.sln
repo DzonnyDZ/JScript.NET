@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Key.snk = Key.snk
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSLangProj.Shared", "VSLangProj.Shared\VSLangProj.Shared\VSLangProj.Shared.csproj", "{AFD58707-E5BE-407D-AF32-CFB38D903972}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSLangProj.Shared", "..\VSLangProj.Shared\VSLangProj.Shared\VSLangProj.Shared.csproj", "{AFD58707-E5BE-407D-AF32-CFB38D903972}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
