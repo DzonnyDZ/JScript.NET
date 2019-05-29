@@ -13,13 +13,13 @@ namespace Dzonny.JScriptNet
     /// or localized resources for the strings that appear in the New Project and Open Project dialogs.
     /// Creating project extensions or project types does not actually require a VSPackage.
     /// </remarks>
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Description("JScript.NET project system")]
     [Guid(PackageGuid)]
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    [ProvideAutoLoad(UIContextGuids80.NoSolution)]
-    public sealed class JScriptNetVsPackage : ProjectSystemPackage
-    {                       
+    [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
+    public sealed class JScriptNetVsPackage : AsyncProjectSystemPackage
+    {
         /// <summary>CTor - creates a new instance of the <see cref="JScriptNetVsPackage"/> class</summary>
         public JScriptNetVsPackage() : base("JScript.NET") { }
 
