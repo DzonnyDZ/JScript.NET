@@ -23,6 +23,7 @@
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="JScript.NET.ProjectType" Path="|JScript.NET.ProjectType;PkgdefProjectOutputGroup|" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="Project" d:ProjectName="JScript.NET.ProjectTemplate" d:TargetPath="|JScript.NET.ProjectTemplate;TemplateProjectOutputGroup|" Path="ProjectTemplates" d:VsixSubPath="ProjectTemplates" />
         <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="JScript.NET.Tasks" Path="|JScript.NET.Tasks|" AssemblyName="|JScript.NET.Tasks;AssemblyName|" />
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="VSLangProj.Shared" Path="|VSLangProj.Shared|" AssemblyName="|VSLangProj.Shared;AssemblyName|" />
     </Assets>
     <Prerequisites>
         <Prerequisite Id="Microsoft.Component.MSBuild" Version="[16.0,17.0)" DisplayName="MSBuild" />

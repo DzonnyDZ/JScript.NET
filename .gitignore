@@ -4,3 +4,6 @@ obj
 /packages
 *.user
 *.delme
+/JScript.NET.ProjectType/BuildSystem/DeployedBuildSystem/*.dll
+/JScript.NET.ProjectType/BuildSystem/DeployedBuildSystem/*.pdb
+/JScript.NET.ProjectType/BuildSystem/DeployedBuildSystem/*.xml

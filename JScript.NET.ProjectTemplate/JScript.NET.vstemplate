@@ -11,6 +11,9 @@
         <CreateNewFolder>true</CreateNewFolder>
         <DefaultName>JScript.NET</DefaultName>
         <ProvideDefaultName>true</ProvideDefaultName>
+        <LanguageTag>Javascript</LanguageTag>
+        <ProjectTypeTag>Console</ProjectTypeTag>
+        <ProjectTypeTag>Library</ProjectTypeTag>
     </TemplateData>
     <TemplateContent>
         <Project File="JScript.NET.jsnproj" ReplaceParameters="true">

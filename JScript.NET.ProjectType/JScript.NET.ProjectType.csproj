@@ -377,6 +377,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\VSLangProj.Shared\VSLangProj.Shared\VSLangProj.Shared.csproj">
+      <Project>{afd58707-e5be-407d-af32-cfb38d903972}</Project>
+      <Name>VSLangProj.Shared</Name>
+            <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+            <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
     <ProjectReference Include="..\JScript.NET.ProjectTemplate\JScript.NET.ProjectTemplate.csproj">
       <Project>{c5fb8941-f7ae-4eb7-b948-b070822b5593}</Project>
       <Name>JScript.NET.ProjectTemplate</Name>
@@ -390,13 +396,7 @@
       <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
       <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
     </ProjectReference>
-    <ProjectReference Include="..\..\VSLangProj.Shared\VSLangProj.Shared\VSLangProj.Shared.csproj">
-      <Project>{afd58707-e5be-407d-af32-cfb38d903972}</Project>
-      <Name>VSLangProj.Shared</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <IncludeOutputGroupsInVSIX>VSIXContainerProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
-      <VSIXSubPath>BuildSystem/DeployedBuildSystem</VSIXSubPath>
-    </ProjectReference>
+
   </ItemGroup>
   <!-- 
   Resources for our new project system
@@ -451,7 +451,7 @@
     <None Include="BuildSystem\DeployedBuildSystem\CustomProjectCs.targets" />
   </ItemGroup>
   <!--
-  The XAML files provide buth compile-time implementations for CPS rules as well as
+  The XAML files provide both compile-time implementations for CPS rules as well as
   runtime information for property pages.  They will also be deployed as part of the
   final package.
   -->
@@ -523,11 +523,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="BuildSystem\DeployedBuildSystem\Dzonny.JScriptNet.Tasks.dll" />
-    <None Include="BuildSystem\DeployedBuildSystem\Dzonny.JScriptNet.Tasks.pdb" />
-    <None Include="BuildSystem\DeployedBuildSystem\Dzonny.JScriptNet.Tasks.xml" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.VisualStudio.ProjectSystem.Analyzers.15.8.243\analyzers\Microsoft.VisualStudio.ProjectSystem.Analyzers.dll" />
